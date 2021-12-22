@@ -1,7 +1,7 @@
 #!/bin/bash
 
-npx tailwindcss -i ./index.css -o ./output.css
+rm -r dist
+mkdir -p dist
 
-mkdir -p build
-cp *.html build
-cp output.css build
+npx tailwindcss -i ./src/index.css -o ./dist/output.css
+cp src/*.html dist
