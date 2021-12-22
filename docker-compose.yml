@@ -5,5 +5,9 @@ services:
     build:
       dockerfile: ./Dockerfile
       context: .
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
     ports:
       - "3002:80"
