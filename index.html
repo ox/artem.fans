@@ -10,8 +10,8 @@
 </head>
 
 <body class="bg-gray-800 text-gray-200">
-  <div id="container" class="p-12 space-x-6 overflow-x-auto whitespace-nowrap">
-    <div data-pane class="w-96 space-y-4 inline-block whitespace-normal align-top">
+  <div id="container" class="flex flex-nowrap overflow-y-hidden">
+    <div data-pane>
       <h1 class="font-mono font-black text-2xl">artem.fans</h1>
       <div class="space-y-2">
         <p class="italic">
@@ -36,12 +36,16 @@
     const cache = {};
 
     function makePane(contents) {
-      const parent = document.getElementById("container");
+      const container = document.getElementById("container");
       const newPane = document.createElement('div');
       newPane.setAttribute('data-pane', '');
-      newPane.classList.add("w-96", "space-y-4", "inline-block", "whitespace-normal", "align-top");
       newPane.innerHTML = contents;
-      parent.appendChild(newPane);
+      container.appendChild(newPane);
+
+
+        const rect = newPane.getBoundingClientRect();
+        console.log('new pane x:', rect.left, 'rect:', rect, 'pane:', newPane);
+        newPane.scrollIntoView({behavior: "smooth"});
     }
 
     function clickListener (e) {
