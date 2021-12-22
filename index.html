@@ -11,7 +11,7 @@
 
 <body class="bg-gray-800 text-gray-200">
   <div id="container" class="flex flex-nowrap overflow-y-hidden">
-    <div data-pane>
+    <div data-pane="/">
       <h1 class="font-mono font-black text-2xl">artem.fans</h1>
       <div class="space-y-2">
         <p class="italic">
@@ -19,14 +19,13 @@
           development.
         </p>
         <p>
-          I'm on <a class="text-orange-400" href="https://twitter.com/ox">Twitter</a> and <a class="text-orange-400"
-            href="https://github.com/ox">GitHub</a>.
+          I'm on <a href="https://twitter.com/ox">Twitter</a> and <a href="https://github.com/ox">GitHub</a>.
         </p>
       </div>
       <div>
         <h2 class="">Projects</h2>
         <ul class="list-disc list-inside">
-          <li><a href="#" data-openright="/runningman_network.html" class="text-orange-400">runnningman.network</a></li>
+          <li><a href="#" data-openright="/runningman_network.html">runnningman.network</a></li>
         </ul>
       </div>
     </div>
@@ -35,17 +34,30 @@
   <script>
     const cache = {};
 
-    function makePane(contents) {
+    function makePane(url, contents) {
       const container = document.getElementById("container");
       const newPane = document.createElement('div');
-      newPane.setAttribute('data-pane', '');
+      newPane.setAttribute('data-pane', url);
       newPane.innerHTML = contents;
       container.appendChild(newPane);
+      return newPane;
+    }
 
+    function loadPane(target) {
+      // Create a new sibling pane with the contents of that link
+      let run = Promise.resolve();
+      if (cache[target]) {
+        run = Promise.resolve(makePane(target, cache[target]));
+      } else {
+        run = fetch(target)
+          .then((response) => response.text())
+          .then((contents) => {
+            cache[target] = contents;
+            return makePane(target, contents);
+          });
+      }
 
-        const rect = newPane.getBoundingClientRect();
-        console.log('new pane x:', rect.left, 'rect:', rect, 'pane:', newPane);
-        newPane.scrollIntoView({behavior: "smooth"});
+      return run;
     }
 
     function clickListener (e) {
@@ -53,10 +65,11 @@
 
       const target = e.target.getAttribute('data-openright');
       if (target) {
-        console.log('clicked', e.target.innerHTML, 'pointing to', target);
+        // Get the pane containing this link
         const closestPane = e.target.closest('[data-pane]');
         const parent = document.getElementById("container");
 
+        // Remove all of the siblings of the pane
         let nextPane = closestPane.nextElementSibling;
         while (nextPane) {
           const curr = nextPane;
@@ -64,19 +77,22 @@
           parent.removeChild(curr)
         }
 
-        let run = Promise.resolve();
-        if (cache[target]) {
-          run = Promise.resolve(makePane(cache[target]));
-        } else {
-          run = fetch(target)
-            .then((response) => response.text())
-            .then((contents) => {
-              makePane(contents);
-              cache[target] = contents;
+        loadPane(target)
+          .then((newPane) => {
+            if (newPane) {
+              newPane.scrollIntoView({behavior: "smooth"});
+            }
+          })
+          .then(() => {
+            // Set the navigation hash to the list of panes that are opened
+            let hash = [];
+            document.querySelectorAll('[data-pane]').forEach((pane) => {
+              hash.push(pane.getAttribute('data-pane'));
             });
-        }
-
-        run.then(cleanupLinkHooks).finally(attachLinkHooks);
+            location.hash = hash.join(',');
+          })
+          .then(cleanupLinkHooks)
+          .then(attachLinkHooks);
       }
     }
 
@@ -93,6 +109,17 @@
         link.addEventListener('click', clickListener)
       });
     }
+
+    const panes = location.hash.split(',').slice(1);
+    let run = Promise.resolve();
+    panes.forEach((target) => {
+      run = run.then(() => loadPane(target));
+    });
+    run.then((lastPane) => {
+      if (lastPane) {
+        lastPane.scrollIntoView();
+      }
+    });
   
     attachLinkHooks();
   </script>

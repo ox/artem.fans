@@ -3,17 +3,27 @@
 @tailwind utilities;
 
 @layer components {
-  #container {
-    height: 100vh;
-    backface-visibility: none;
+  a {
+    @apply text-orange-400 underline-offset-2;
   }
 
-  #container::-webkit-scrollbar {
+  #container {
+    @apply snap-x;
+    height: 100vh;
+  }
+
+  @media (min-width: 640px) {
+    #container {
+      @apply sm:snap-none;
+    }
+  }
+
+  #container::-webkit-scrollbar, [data-pane]::-webkit-scrollbar {
     display: none;
   }
 
   [data-pane] {
-    @apply p-4 sm:p-12 space-y-4 overflow-y-auto flex-shrink-0 flex-grow-0 h-auto;
+    @apply p-4 sm:p-12 space-y-4 overflow-y-auto flex-shrink-0 flex-grow-0 h-auto snap-center;
     flex-basis: 100vw;
   }
 
