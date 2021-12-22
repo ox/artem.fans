@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>artem.fans</title>
+  <link href="/output.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-800 text-gray-200">
+  <div id="container" class="p-12 space-x-6 overflow-x-auto whitespace-nowrap">
+    <div data-pane class="w-96 space-y-4 inline-block whitespace-normal align-top">
+      <h1 class="font-mono font-black text-2xl">artem.fans</h1>
+      <div class="space-y-2">
+        <p class="italic">
+          Hello! My name is Artem and I'm a full-stack developer obsessed with reviving old technology and the web
+          development.
+        </p>
+        <p>
+          I'm on <a class="text-orange-400" href="https://twitter.com/ox">Twitter</a> and <a class="text-orange-400"
+            href="https://github.com/ox">GitHub</a>.
+        </p>
+      </div>
+      <div>
+        <h2 class="">Projects</h2>
+        <ul class="list-disc list-inside">
+          <li><a href="#" data-openright="/runningman_network.html" class="text-orange-400">runnningman.network</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cache = {};
+
+    function makePane(contents) {
+      const parent = document.getElementById("container");
+      const newPane = document.createElement('div');
+      newPane.setAttribute('data-pane', '');
+      newPane.classList.add("w-96", "space-y-4", "inline-block", "whitespace-normal", "align-top");
+      newPane.innerHTML = contents;
+      parent.appendChild(newPane);
+    }
+
+    function clickListener (e) {
+      e.preventDefault();
+
+      const target = e.target.getAttribute('data-openright');
+      if (target) {
+        console.log('clicked', e.target.innerHTML, 'pointing to', target);
+        const closestPane = e.target.closest('[data-pane]');
+        const parent = document.getElementById("container");
+
+        let nextPane = closestPane.nextElementSibling;
+        while (nextPane) {
+          const curr = nextPane;
+          nextPane = nextPane.nextElementSibling;
+          parent.removeChild(curr)
+        }
+
+        let run = Promise.resolve();
+        if (cache[target]) {
+          run = Promise.resolve(makePane(cache[target]));
+        } else {
+          run = fetch(target)
+            .then((response) => response.text())
+            .then((contents) => {
+              makePane(contents);
+              cache[target] = contents;
+            });
+        }
+
+        run.then(cleanupLinkHooks).finally(attachLinkHooks);
+      }
+    }
+
+    function cleanupLinkHooks() {
+      const links = document.querySelectorAll('[data-openright]');
+      links.forEach((link) => {
+        link.removeEventListener('click', clickListener);
+      });
+    }
+
+    function attachLinkHooks() {
+      const links = document.querySelectorAll('[data-openright]');
+      links.forEach((link) => {
+        link.addEventListener('click', clickListener)
+      });
+    }
+  
+    attachLinkHooks();
+  </script>
+</body>
+
+</html>
