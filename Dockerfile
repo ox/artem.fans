@@ -1,7 +1,7 @@
 from node as builder
 
 workdir /app
-copy package.json package-lock.json tailwind.config.js build.sh /app
+copy package.json package-lock.json tailwind.config.js build.sh /app/
 run npm install
 copy src /app/src
 run npm run build

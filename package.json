@@ -11,7 +11,8 @@
   },
   "scripts": {
     "build": "./build.sh",
-    "dev": "./dev.sh"
+    "dev": "./dev.sh",
+    "deploy": "./deploy.sh"
   },
   "keywords": [],
   "author": "",
