@@ -1,9 +1,13 @@
 version: '3'
 services:
-  nginx:
+  www:
+    container_name: www
     build:
+      args:
+        TAG: $TAG
       dockerfile: ./Dockerfile
       context: .
+    image: $TAG
     deploy:
       restart_policy:
         condition: on-failure
