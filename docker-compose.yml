@@ -1,7 +1,7 @@
 version: '3'
 services:
   nginx:
-    image: www.artem.fans:latest
+    image: www.artem.fans:${TAG:-latest}
     build:
       dockerfile: ./Dockerfile
       context: .
