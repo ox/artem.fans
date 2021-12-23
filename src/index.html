@@ -40,6 +40,23 @@
       newPane.setAttribute('data-pane', url);
       newPane.innerHTML = contents;
       container.appendChild(newPane);
+
+      const panePath = [];
+      let currentPane = newPane;
+      while (currentPane) {
+        panePath.unshift(currentPane.getAttribute('data-pane'));
+        currentPane = currentPane.previousElementSibling
+      }
+
+      const panePermalink = '#' + panePath.join(',');
+      newPane.setAttribute('data-permalink', panePermalink);
+      
+      const permalink = document.createElement('a');
+      permalink.href = panePermalink;
+      permalink.text = "permalink";
+      permalink.classList.add("pt-8");
+      newPane.appendChild(permalink);
+
       return newPane;
     }
 
@@ -64,36 +81,38 @@
       e.preventDefault();
 
       const target = e.target.getAttribute('data-openright');
-      if (target) {
-        // Get the pane containing this link
-        const closestPane = e.target.closest('[data-pane]');
-        const parent = document.getElementById("container");
-
-        // Remove all of the siblings of the pane
-        let nextPane = closestPane.nextElementSibling;
-        while (nextPane) {
-          const curr = nextPane;
-          nextPane = nextPane.nextElementSibling;
-          parent.removeChild(curr)
-        }
-
-        loadPane(target)
-          .then((newPane) => {
-            if (newPane) {
-              newPane.scrollIntoView({behavior: "smooth"});
-            }
-          })
-          .then(() => {
-            // Set the navigation hash to the list of panes that are opened
-            let hash = [];
-            document.querySelectorAll('[data-pane]').forEach((pane) => {
-              hash.push(pane.getAttribute('data-pane'));
-            });
-            location.hash = hash.join(',');
-          })
-          .then(cleanupLinkHooks)
-          .then(attachLinkHooks);
+      if (!target) {
+        return;
       }
+
+      // Get the pane containing this link
+      const closestPane = e.target.closest('[data-pane]');
+      const parent = document.getElementById("container");
+
+      // Remove all of the siblings of the pane
+      let nextPane = closestPane.nextElementSibling;
+      while (nextPane) {
+        const curr = nextPane;
+        nextPane = nextPane.nextElementSibling;
+        parent.removeChild(curr)
+      }
+
+      loadPane(target)
+        .then((newPane) => {
+          if (newPane) {
+            newPane.scrollIntoView({behavior: "smooth"});
+          }
+        })
+        .then(() => {
+          // Set the navigation hash to the list of panes that are opened
+          let hash = [];
+          document.querySelectorAll('[data-pane]').forEach((pane) => {
+            hash.push(pane.getAttribute('data-pane'));
+          });
+          location.hash = hash.join(',');
+        })
+        .then(cleanupLinkHooks)
+        .then(attachLinkHooks);
     }
 
     function cleanupLinkHooks() {
@@ -106,21 +125,20 @@
     function attachLinkHooks() {
       const links = document.querySelectorAll('[data-openright]');
       links.forEach((link) => {
-        link.addEventListener('click', clickListener)
+        link.addEventListener('click', clickListener);
       });
     }
 
-    const panes = location.hash.split(',').slice(1);
-    let run = Promise.resolve();
-    panes.forEach((target) => {
-      run = run.then(() => loadPane(target));
-    });
-    run.then((lastPane) => {
-      if (lastPane) {
-        lastPane.scrollIntoView();
-      }
-    });
-  
+    const targets = location.hash.split(',').slice(1);
+    Promise.all(targets.map((target) => loadPane(target)))
+      .then((panes) => {
+        if (panes.length) {
+          const lastPane = panes[panes.length - 1];
+          lastPane.scrollIntoView();
+        }
+      })
+      .then(attachLinkHooks);
+    
     attachLinkHooks();
   </script>
 </body>
