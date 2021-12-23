@@ -1,9 +1,11 @@
 from node as builder
 
 workdir /app
-copy ./src /app
-run npm install && npm run build
+copy package.json package-lock.json tailwind.config.js ./build.sh /app
+run npm install
+copy ./src /app/src
+run npm run build
 
 from nginx
 copy --from=builder /app/dist /usr/share/nginx/html
-copy --from=builder /app/data/nginx /etc/nginx/conf.d
+copy ./data/nginx /etc/nginx/conf.d
