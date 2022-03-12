@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>5 Letter Word Game</title>
+    <meta name="title" content="5 Letter Word Game" />
+    <meta
+      name="description"
+      content="A fun word game that you may have played before. Attempt every word in the list!"
+    />
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <script src="./words.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <button id="prev-game" class="nav-button">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.85355 3.85355C7.04882 3.65829 7.04882 3.34171 6.85355 3.14645C6.65829 2.95118 6.34171 2.95118 6.14645 3.14645L2.14645 7.14645C1.95118 7.34171 1.95118 7.65829 2.14645 7.85355L6.14645 11.8536C6.34171 12.0488 6.65829 12.0488 6.85355 11.8536C7.04882 11.6583 7.04882 11.3417 6.85355 11.1464L3.20711 7.5L6.85355 3.85355ZM12.8536 3.85355C13.0488 3.65829 13.0488 3.34171 12.8536 3.14645C12.6583 2.95118 12.3417 2.95118 12.1464 3.14645L8.14645 7.14645C7.95118 7.34171 7.95118 7.65829 8.14645 7.85355L12.1464 11.8536C12.3417 12.0488 12.6583 12.0488 12.8536 11.8536C13.0488 11.6583 13.0488 11.3417 12.8536 11.1464L9.20711 7.5L12.8536 3.85355Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+      <div class="info">
+        <p>Game <span id="game-idx">0</span></p>
+        <button id="show-settings" class="nav-button">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.07095 0.650238C6.67391 0.650238 6.32977 0.925096 6.24198 1.31231L6.0039 2.36247C5.6249 2.47269 5.26335 2.62363 4.92436 2.81013L4.01335 2.23585C3.67748 2.02413 3.23978 2.07312 2.95903 2.35386L2.35294 2.95996C2.0722 3.2407 2.0232 3.6784 2.23493 4.01427L2.80942 4.92561C2.62307 5.2645 2.47227 5.62594 2.36216 6.00481L1.31209 6.24287C0.924883 6.33065 0.650024 6.6748 0.650024 7.07183V7.92897C0.650024 8.32601 0.924883 8.67015 1.31209 8.75794L2.36228 8.99603C2.47246 9.375 2.62335 9.73652 2.80979 10.0755L2.2354 10.9867C2.02367 11.3225 2.07267 11.7602 2.35341 12.041L2.95951 12.6471C3.24025 12.9278 3.67795 12.9768 4.01382 12.7651L4.92506 12.1907C5.26384 12.377 5.62516 12.5278 6.0039 12.6379L6.24198 13.6881C6.32977 14.0753 6.67391 14.3502 7.07095 14.3502H7.92809C8.32512 14.3502 8.66927 14.0753 8.75705 13.6881L8.99505 12.6383C9.37411 12.5282 9.73573 12.3773 10.0748 12.1909L10.986 12.7653C11.3218 12.977 11.7595 12.928 12.0403 12.6473L12.6464 12.0412C12.9271 11.7604 12.9761 11.3227 12.7644 10.9869L12.1902 10.076C12.3768 9.73688 12.5278 9.37515 12.638 8.99596L13.6879 8.75794C14.0751 8.67015 14.35 8.32601 14.35 7.92897V7.07183C14.35 6.6748 14.0751 6.33065 13.6879 6.24287L12.6381 6.00488C12.528 5.62578 12.3771 5.26414 12.1906 4.92507L12.7648 4.01407C12.9766 3.6782 12.9276 3.2405 12.6468 2.95975L12.0407 2.35366C11.76 2.07292 11.3223 2.02392 10.9864 2.23565L10.0755 2.80989C9.73622 2.62328 9.37437 2.47229 8.99505 2.36209L8.75705 1.31231C8.66927 0.925096 8.32512 0.650238 7.92809 0.650238H7.07095ZM4.92053 3.81251C5.44724 3.44339 6.05665 3.18424 6.71543 3.06839L7.07095 1.50024H7.92809L8.28355 3.06816C8.94267 3.18387 9.5524 3.44302 10.0794 3.81224L11.4397 2.9547L12.0458 3.56079L11.1882 4.92117C11.5573 5.44798 11.8164 6.0575 11.9321 6.71638L13.5 7.07183V7.92897L11.932 8.28444C11.8162 8.94342 11.557 9.55301 11.1878 10.0798L12.0453 11.4402L11.4392 12.0462L10.0787 11.1886C9.55192 11.5576 8.94241 11.8166 8.28355 11.9323L7.92809 13.5002H7.07095L6.71543 11.932C6.0569 11.8162 5.44772 11.5572 4.92116 11.1883L3.56055 12.046L2.95445 11.4399L3.81213 10.0794C3.4431 9.55266 3.18403 8.94326 3.06825 8.2845L1.50002 7.92897V7.07183L3.06818 6.71632C3.18388 6.05765 3.44283 5.44833 3.81171 4.92165L2.95398 3.561L3.56008 2.95491L4.92053 3.81251ZM9.02496 7.50008C9.02496 8.34226 8.34223 9.02499 7.50005 9.02499C6.65786 9.02499 5.97513 8.34226 5.97513 7.50008C5.97513 6.65789 6.65786 5.97516 7.50005 5.97516C8.34223 5.97516 9.02496 6.65789 9.02496 7.50008ZM9.92496 7.50008C9.92496 8.83932 8.83929 9.92499 7.50005 9.92499C6.1608 9.92499 5.07513 8.83932 5.07513 7.50008C5.07513 6.16084 6.1608 5.07516 7.50005 5.07516C8.83929 5.07516 9.92496 6.16084 9.92496 7.50008Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <button id="next-game" class="nav-button">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.14645 11.1464C1.95118 11.3417 1.95118 11.6583 2.14645 11.8536C2.34171 12.0488 2.65829 12.0488 2.85355 11.8536L6.85355 7.85355C7.04882 7.65829 7.04882 7.34171 6.85355 7.14645L2.85355 3.14645C2.65829 2.95118 2.34171 2.95118 2.14645 3.14645C1.95118 3.34171 1.95118 3.65829 2.14645 3.85355L5.79289 7.5L2.14645 11.1464ZM8.14645 11.1464C7.95118 11.3417 7.95118 11.6583 8.14645 11.8536C8.34171 12.0488 8.65829 12.0488 8.85355 11.8536L12.8536 7.85355C13.0488 7.65829 13.0488 7.34171 12.8536 7.14645L8.85355 3.14645C8.65829 2.95118 8.34171 2.95118 8.14645 3.14645C7.95118 3.34171 7.95118 3.65829 8.14645 3.85355L11.7929 7.5L8.14645 11.1464Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="game">
+      <div id="board-container">
+        <div id="guesses">
+          <div class="tile-row">
+            <div class="tile" data-tile="0,0"></div>
+            <div class="tile" data-tile="0,1"></div>
+            <div class="tile" data-tile="0,2"></div>
+            <div class="tile" data-tile="0,3"></div>
+            <div class="tile" data-tile="0,4"></div>
+          </div>
+          <div class="tile-row">
+            <div class="tile" data-tile="1,0"></div>
+            <div class="tile" data-tile="1,1"></div>
+            <div class="tile" data-tile="1,2"></div>
+            <div class="tile" data-tile="1,3"></div>
+            <div class="tile" data-tile="1,4"></div>
+          </div>
+          <div class="tile-row">
+            <div class="tile" data-tile="2,0"></div>
+            <div class="tile" data-tile="2,1"></div>
+            <div class="tile" data-tile="2,2"></div>
+            <div class="tile" data-tile="2,3"></div>
+            <div class="tile" data-tile="2,4"></div>
+          </div>
+          <div class="tile-row">
+            <div class="tile" data-tile="3,0"></div>
+            <div class="tile" data-tile="3,1"></div>
+            <div class="tile" data-tile="3,2"></div>
+            <div class="tile" data-tile="3,3"></div>
+            <div class="tile" data-tile="3,4"></div>
+          </div>
+          <div class="tile-row">
+            <div class="tile" data-tile="4,0"></div>
+            <div class="tile" data-tile="4,1"></div>
+            <div class="tile" data-tile="4,2"></div>
+            <div class="tile" data-tile="4,3"></div>
+            <div class="tile" data-tile="4,4"></div>
+          </div>
+          <div class="tile-row">
+            <div class="tile" data-tile="5,0"></div>
+            <div class="tile" data-tile="5,1"></div>
+            <div class="tile" data-tile="5,2"></div>
+            <div class="tile" data-tile="5,3"></div>
+            <div class="tile" data-tile="5,4"></div>
+          </div>
+        </div>
+      </div>
+      <div id="keyboard-container">
+        <div id="keyboard">
+          <div class="row">
+            <button class="key" data-key="q">q</button
+            ><button class="key" data-key="w">w</button
+            ><button class="key" data-key="e">e</button
+            ><button class="key" data-key="r">r</button
+            ><button class="key" data-key="t">t</button
+            ><button class="key" data-key="y">y</button
+            ><button class="key" data-key="u">u</button
+            ><button class="key" data-key="i">i</button
+            ><button class="key" data-key="o">o</button
+            ><button class="key" data-key="p">p</button>
+          </div>
+          <div class="row">
+            <div class="spacer"></div>
+            <button class="key" data-key="a">a</button
+            ><button class="key" data-key="s">s</button
+            ><button class="key" data-key="d">d</button
+            ><button class="key" data-key="f">f</button
+            ><button class="key" data-key="g">g</button
+            ><button class="key" data-key="h">h</button
+            ><button class="key" data-key="j">j</button
+            ><button class="key" data-key="k">k</button
+            ><button class="key" data-key="l">l</button>
+            <div class="spacer"></div>
+          </div>
+          <div class="row">
+            <button class="key one-and-a-half enter" data-key="Enter">
+              Enter</button
+            ><button class="key" data-key="z">z</button
+            ><button class="key" data-key="x">x</button
+            ><button class="key" data-key="c">c</button
+            ><button class="key" data-key="v">v</button
+            ><button class="key" data-key="b">b</button
+            ><button class="key" data-key="n">n</button
+            ><button class="key" data-key="m">m</button
+            ><button class="key one-and-a-half" data-key="Backspace">
+              <svg height="24" width="24" viewBox="0 0 24 24">
+                <path
+                  fill="var(--key-color)"
+                  d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14zm-11.59-2L14 13.41 17.59 17 19 15.59 15.41 12 19 8.41 17.59 7 14 10.59 10.41 7 9 8.41 12.59 12 9 15.59z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="toast"></div>
+    </div>
+
+    <div id="settings-overlay">
+      <div id="settings">
+        <div class="header">
+          <h3>SETTINGS</h3>
+          <button id="close-settings" class="nav-button">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="contents">
+          <div class="setting">
+            <div class="property">
+              <div class="name">Hard Mode</div>
+              <div class="description">
+                Any revealed hints must be used in subsequent guesses
+              </div>
+            </div>
+            <div class="value">
+              <input type="checkbox" class="toggle" data-setting="hardmode" />
+            </div>
+          </div>
+          <div class="setting">
+            <div class="property">
+              <div class="name">Dark Theme</div>
+              <div class="description"></div>
+            </div>
+            <div class="value">
+              <input type="checkbox" class="toggle" data-setting="darktheme" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const darkThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      function handleThemeChange(mql) {
+        if (mql.matches) {
+          document.body.classList.add("dark-theme");
+        } else {
+          document.body.classList.remove("dark-theme");
+        }
+      }
+
+      function evaluateTheme() {
+        handleThemeChange(darkThemeQuery);
+      }
+
+      handleThemeChange(darkThemeQuery);
+      darkThemeQuery.addEventListener("change", handleThemeChange);
+
+      window.cleanupFns = [];
+      const letterPositions = ["1st", "2nd", "3rd", "4th", "5th"];
+      const winMessages = [
+        "Bears!",
+        "Magnificent",
+        "Impressive",
+        "Splendid",
+        "Great",
+        "Phew",
+      ];
+
+      // AppState holds information about the current game and all of the games played
+      function loadAppState() {
+        let appState = localStorage.getItem("appState");
+        if (!appState) {
+          const defaultAppState = {
+            games: {},
+            currentGame: 0,
+            settings: {},
+          };
+          localStorage.setItem("appState", JSON.stringify(defaultAppState));
+          return defaultAppState;
+        }
+
+        appState = JSON.parse(appState);
+        if (localStorage.getItem("show-debug") === "true") {
+          appState.showDebug = true;
+        }
+
+        return appState;
+      }
+
+      function saveAppState(appState) {
+        const newAppState = Object.assign(
+          { games: {}, settings: {} },
+          appState
+        );
+        delete newAppState["showDebug"];
+        localStorage.setItem("appState", JSON.stringify(newAppState));
+      }
+
+      // Game state holds the
+      function loadGameState(appState) {
+        const gameIdx = appState.currentGame;
+        const game = appState.games[gameIdx];
+        if (!game) {
+          const defaultGameState = {
+            gameIdx,
+            guesses: [],
+            currentGuess: "",
+          };
+          appState.games[gameIdx] = defaultGameState;
+          saveAppState(appState);
+          return appState.games[gameIdx];
+        }
+
+        return game;
+      }
+
+      function saveGameState(appState, gameState) {
+        appState.games[gameState.gameIdx] = gameState;
+        saveAppState(appState);
+      }
+
+      function setSetting(appState, setting, value) {
+        if (!appState.settings) {
+          appState.settings = {};
+        }
+        appState.settings[setting] = value;
+        saveAppState(appState);
+      }
+
+      function cleanup() {
+        // Cleanup tiles
+        const tiles = document.querySelectorAll(".tile");
+        const tileClasses = [
+          "tile-correct",
+          "tile-present",
+          "tile-absent",
+          "tile-guess",
+        ];
+        tiles.forEach((tile) =>
+          tileClasses.forEach((cl) => tile.classList.remove(cl))
+        );
+
+        // Cleanup keys
+        const keys = document.querySelectorAll(".key");
+        const keyClasses = ["key-absent", "key-present", "key-correct"];
+        keys.forEach((key) =>
+          keyClasses.forEach((cl) => key.classList.remove(cl))
+        );
+
+        // Cleanup event handlers
+        window.cleanupFns.forEach((fn) => fn());
+        window.cleanupFns = [];
+      }
+
+      function changeGame(appState, gameState, gameIdx) {
+        saveGameState(appState, gameState);
+        appState.currentGame = Math.max(gameIdx, 0);
+        saveAppState(appState, gameState);
+        init();
+      }
+
+      function init() {
+        cleanup();
+
+        // Load app and game states
+        const appState = loadAppState();
+        const gameState = loadGameState(appState);
+
+        initBoard(appState, gameState);
+        initKeyboard(appState, gameState);
+        initNavigation(appState, gameState);
+        if (appState.showDebug) {
+          initSettings(appState, gameState);
+        }
+        updateGame(appState, gameState);
+      }
+
+      function initBoard(appState, gameState) {
+        const tiles = document.querySelectorAll(".tile");
+        tiles.forEach((tile) => {
+          tile.classList.remove("tile-guess");
+          tile.classList.remove("tile-present");
+          tile.classList.remove("tile-absent");
+          tile.classList.remove("tile-correct");
+        });
+      }
+
+      function initKeyboard(appState, gameState) {
+        const keydownFn = (e) => keydown(appState, gameState, e);
+        document.addEventListener("keydown", keydownFn);
+        window.cleanupFns.push(() =>
+          document.removeEventListener("keydown", keydownFn)
+        );
+
+        const keys = document.querySelectorAll(".key");
+        keys.forEach((key) => {
+          const dataKey = key.getAttribute("data-key");
+          if (dataKey === "Enter") {
+            const fn = () => playKeypress(appState, gameState, "Enter");
+            key.addEventListener("click", fn);
+            window.cleanupFns.push(() => key.removeEventListener("click", fn));
+          } else if (dataKey === "Backspace") {
+            const fn = () => playKeypress(appState, gameState, "Backspace");
+            key.addEventListener("click", fn);
+            window.cleanupFns.push(() => key.removeEventListener("click", fn));
+          } else {
+            const fn = () => playKeypress(appState, gameState, dataKey);
+            key.addEventListener("click", fn);
+            window.cleanupFns.push(() => key.removeEventListener("click", fn));
+          }
+        });
+      }
+
+      function initNavigation(appState, gameState) {
+        // Show the game number that is being played
+        const gameIdxSpan = document.getElementById("game-idx");
+        gameIdxSpan.innerHTML =
+          appState.currentGame + (appState.showDebug ? " [D]" : "");
+
+        const prevButton = document.getElementById("prev-game");
+        if (appState.currentGame === 0) {
+          prevButton.disabled = true;
+        } else {
+          prevButton.disabled = false;
+          const prevFn = () => {
+            prevButton.blur();
+            changeGame(appState, gameState, appState.currentGame - 1);
+          };
+          prevButton.addEventListener("click", prevFn);
+          window.cleanupFns.push(() =>
+            prevButton.removeEventListener("click", prevFn)
+          );
+        }
+
+        const nextButton = document.getElementById("next-game");
+        if (appState.currentGame === window.answers.length - 1) {
+          nextButton.disabled = true;
+        } else {
+          nextButton.disabled = false;
+          const nextFn = () => {
+            nextButton.blur();
+            changeGame(appState, gameState, appState.currentGame + 1);
+          };
+          nextButton.addEventListener("click", nextFn);
+          window.cleanupFns.push(() =>
+            nextButton.removeEventListener("click", nextFn)
+          );
+        }
+
+        if (appState.showDebug) {
+          document.body.classList.add("debug");
+
+          const settingsOverlay = document.getElementById("settings-overlay");
+          const settingsShowButton = document.getElementById("show-settings");
+          const settingsShowFn = () => {
+            settingsShowButton.blur();
+            settingsOverlay.classList.add("visible");
+          };
+          settingsShowButton.addEventListener("click", settingsShowFn);
+          window.cleanupFns.push(() =>
+            settingsShowButton.removeEventListener("click", settingsShowFn)
+          );
+
+          const settingsHideButton = document.getElementById("close-settings");
+          const settingsCloseFn = () => {
+            settingsHideButton.blur();
+            settingsOverlay.classList.remove("visible");
+          };
+          settingsHideButton.addEventListener("click", settingsCloseFn);
+          window.cleanupFns.push(() =>
+            settingsHideButton.removeEventListener("click", settingsCloseFn)
+          );
+        } else if (document.body.classList.contains("visible")) {
+          document.body.classList.remove("debug");
+        }
+      }
+
+      function initSettings(appState, gameState) {
+        const settings = document.querySelectorAll("[data-setting]");
+        settings.forEach((setting) => {
+          const settingName = setting.getAttribute("data-setting");
+          if (appState.settings[settingName]) {
+            setting.setAttribute("checked", true);
+          }
+
+          const changeFn = (e) => {
+            const newValue = e.target.checked;
+
+            // check if the setting can be changed at all
+            if (settingName === "hardmode") {
+              const gameStarted = gameState.guesses.length > 0;
+              const currentlyDisabled = !appState.settings.hardmode;
+
+              if (gameStarted && currentlyDisabled && newValue === true) {
+                setting.removeAttribute("checked");
+                e.target.checked = false;
+                blastToast(
+                  "Cannot enable Hard Mode after starting a game.",
+                  3000
+                );
+                return;
+              }
+            }
+
+            console.log("changed", settingName, "to", newValue);
+            setSetting(appState, settingName, newValue);
+            init();
+          };
+          setting.addEventListener("change", changeFn);
+          window.cleanupFns.push(() =>
+            setting.removeEventListener("change", changeFn)
+          );
+        });
+
+        // Apply various settings
+        if (appState.settings.darktheme) {
+          document.body.classList.add("dark-theme");
+        } else {
+          evaluateTheme();
+        }
+      }
+
+      function updateGame(appState, gameState) {
+        const tiles = document.querySelectorAll(".tile");
+        const correct = window.answers[gameState.gameIdx];
+
+        // Reset all tile classes
+        const tileClasses = [
+          "tile-correct",
+          "tile-present",
+          "tile-absent",
+          "tile-guess",
+        ];
+        tiles.forEach((tile) =>
+          tileClasses.forEach((cl) => tile.classList.remove(cl))
+        );
+
+        // Color tiles for each previous guess
+        gameState.guesses.forEach((guess, row) => {
+          let c = correct.split("");
+          let g = guess.split("");
+
+          // Check all of the correct letters, marking them as used
+          for (let idx = 0; idx < g.length; idx++) {
+            const letter = g[idx];
+            if (c[idx] === letter) {
+              g[idx] = "+";
+              c[idx] = "+";
+              const tile = tiles[row * 5 + idx];
+              tile.classList.add("tile-correct");
+              tile.innerHTML = letter;
+            }
+          }
+
+          // Check all of the present letters, marking them as used
+          for (let idx = 0; idx < g.length; idx++) {
+            const letter = g[idx];
+            if (letter === "+") {
+              continue;
+            }
+
+            const cIdx = c.indexOf(letter);
+            if (cIdx >= 0) {
+              g[idx] = "+";
+              c[cIdx] = "+";
+              const tile = tiles[row * 5 + idx];
+              tile.classList.add("tile-present");
+              tile.innerHTML = letter;
+            }
+          }
+
+          // Check for the remaining letters and mark them absent
+          for (let idx = 0; idx < g.length; idx++) {
+            const letter = g[idx];
+            if (letter === "+") {
+              continue;
+            }
+
+            const tile = tiles[row * 5 + idx];
+            tile.classList.add("tile-absent");
+            tile.innerHTML = letter;
+          }
+        });
+
+        // Color tiles for the current guess
+        gameState.currentGuess.split("").forEach((letter, idx) => {
+          const tile = tiles[gameState.guesses.length * 5 + idx];
+          tile.classList.add("tile-guess");
+          tile.innerHTML = letter;
+        });
+
+        // Clear all of the remaining tiles
+        const totalPopulatedTiles =
+          gameState.guesses.length * 5 + gameState.currentGuess.length;
+        for (let i = totalPopulatedTiles; i < tiles.length; i++) {
+          tiles[i].innerHTML = "";
+        }
+
+        updateKeyboard(appState, gameState);
+        saveGameState(appState, gameState);
+      }
+
+      function updateKeyboard(appState, gameState) {
+        const keyMap = {};
+        const keys = document.querySelectorAll(".key");
+        keys.forEach((key) => {
+          keyMap[key.innerHTML] = key;
+        });
+
+        gameState.guesses.forEach((guess) => {
+          guess.split("").forEach((letter, idx) => {
+            const key = keyMap[letter];
+
+            if (!window.answers[gameState.gameIdx].includes(letter)) {
+              key.classList.add("key-absent");
+            } else if (window.answers[gameState.gameIdx][idx] === letter) {
+              key.classList.add("key-correct");
+              if (key.classList.contains("key-present")) {
+                key.classList.remove("key-present");
+              }
+            } else if (window.answers[gameState.gameIdx].includes(letter)) {
+              key.classList.add("key-present");
+            }
+          });
+        });
+      }
+
+      function blastToast(message, duration = 2000) {
+        const toast = document.getElementById("toast");
+        toast.classList.add("visible");
+        const contents = document.createElement("p");
+        contents.classList.add("contents");
+        contents.innerHTML = message;
+        toast.appendChild(contents);
+
+        setTimeout(() => {
+          toast.classList.remove("visible");
+          setTimeout(() => {
+            toast.removeChild(contents);
+          }, 250);
+        }, duration);
+      }
+
+      function playKeypress(appState, gameState, key) {
+        if (key === "Backspace" && gameState.currentGuess.length > 0) {
+          gameState.currentGuess = gameState.currentGuess.slice(0, -1);
+          updateGame(appState, gameState);
+          return;
+        }
+
+        if (key === "Enter" && gameState.currentGuess.length === 5) {
+          if (
+            !window.answers.includes(gameState.currentGuess) &&
+            !window.words.includes(gameState.currentGuess)
+          ) {
+            blastToast("Not in word list");
+            return;
+          }
+
+          // Check hardmode requirements
+          if (
+            appState.settings &&
+            appState.settings.hardmode &&
+            gameState.guesses.length > 0
+          ) {
+            const correct = window.answers[appState.currentGame];
+            const lastWord = gameState.guesses[gameState.guesses.length - 1];
+            let last = lastWord.split("");
+            let guess = gameState.currentGuess.split("");
+
+            // Check all of the correct letters, marking them as used
+            const fixedPosition = {};
+            for (let idx = 0; idx < guess.length; idx++) {
+              const letter = guess[idx];
+              if (last[idx] === letter) {
+                guess[idx] = "+";
+                last[idx] = "+";
+                fixedPosition[letter] = idx;
+              }
+            }
+            console.log("last:", last, "guess:", guess);
+
+            // If any letters required a fixed position
+            const requiredLetters = Object.keys(fixedPosition);
+            if (requiredLetters.length > 0) {
+              const letter = requiredLetters[0];
+              const idx = fixedPosition[letter];
+              blastToast(`${letterPositions[idx]} letter must be ${letter}`);
+              return;
+            }
+
+            // Check which remaining letters must be used
+            const required = [];
+            for (let idx = 0; idx < last.length; idx++) {
+              const letter = last[idx];
+              if (last[idx] === "+") {
+                continue;
+              }
+
+              const gIdx = guess.indexOf(letter);
+              if (gIdx === -1 && !correct.includes(letter)) {
+                required.push(letter);
+              }
+            }
+            console.log("last:", last, "guess:", guess);
+
+            if (required.length > 0) {
+              blastToast(`Must use ${required[0].toUpperCase()}`);
+              return;
+            }
+          }
+
+          gameState.guesses.push("" + gameState.currentGuess);
+          gameState.currentGuess = "";
+          updateGame(appState, gameState);
+
+          if (
+            gameState.guesses[gameState.guesses.length - 1] ===
+            window.answers[gameState.gameIdx]
+          ) {
+            blastToast(winMessages[gameState.guesses.length - 1]);
+          } else if (gameState.guesses.length === 6) {
+            blastToast(
+              `Bummer. It was ${window.answers[gameState.gameIdx]}`,
+              5000
+            );
+          }
+
+          return;
+        }
+
+        // Ignore all other keys
+        if (key.length > 1) {
+          return;
+        }
+
+        // If this is a letter, figure out if we can play
+        const char = key.toLowerCase();
+        if (char >= "a" && char <= "z" && gameState.currentGuess.length < 5) {
+          gameState.currentGuess += char;
+          updateGame(appState, gameState);
+          return;
+        }
+      }
+
+      function keydown(appState, gameState, e) {
+        if (e.repeat && e.key !== "Backspace") {
+          return;
+        }
+
+        // The game is won!
+        if (
+          gameState.guesses[gameState.guesses.length - 1] ===
+          window.answers[gameState.gameIdx]
+        ) {
+          return;
+        }
+
+        // The game is lost!
+        if (gameState.guesses.length === 6) {
+          return;
+        }
+
+        playKeypress(appState, gameState, e.key);
+      }
+
+      init();
+    </script>
+  </body>
+</html>
