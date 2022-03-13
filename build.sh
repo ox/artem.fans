@@ -5,3 +5,4 @@ mkdir -p dist
 
 npx tailwindcss -c tailwind.config.js -i ./src/index.css -o ./dist/output.css
 cp src/*.html dist
+cp -r src/five-letter-word-game dist
