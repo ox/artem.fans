@@ -196,7 +196,7 @@
         </div>
 
         <div class="contents">
-          <!-- <div class="setting">
+          <div class="setting" data-setting-row="hardmode">
             <div class="property">
               <div class="name">Hard Mode</div>
               <div class="description">
@@ -206,14 +206,37 @@
             <div class="value">
               <input type="checkbox" class="toggle" data-setting="hardmode" />
             </div>
-          </div> -->
-          <div class="setting">
+          </div>
+          <div class="setting" data-setting-row="darktheme">
             <div class="property">
               <div class="name">Dark Theme</div>
               <div class="description"></div>
             </div>
             <div class="value">
               <input type="checkbox" class="toggle" data-setting="darktheme" />
+            </div>
+          </div>
+          <div class="setting" data-setting-row="export">
+            <div class="property">
+              <div class="name">Export</div>
+              <div class="description">
+                Export your progress.
+              </div>
+            </div>
+            <div class="value">
+              <button id="export">Export</button>
+            </div>
+          </div>
+          <div class="setting" data-setting-row="import">
+            <div class="property">
+              <div class="name">Import</div>
+              <div class="description">
+                <p>Import your progress from another game, adding only games you haven't played before.</p>
+                <input type="file" id="import-file">
+              </div>
+            </div>
+            <div class="value">
+              <button id="import">Import</button>
             </div>
           </div>
         </div>
@@ -307,6 +330,66 @@
         }
         appState.settings[setting] = value;
         saveAppState(appState);
+      }
+
+      function exportAppState(appState) {
+        // Cleanup the appState
+        delete appState.showDebug;
+
+        // Serialize the current app state and an Object URL
+        const json = JSON.stringify(appState, null, 2);
+        const blob = new Blob([json], {type: "octet/stream"});
+        const url = window.URL.createObjectURL(blob);
+
+        // Create a fake anchor tag that, when cliced, downloads the Object URL as a file
+        const a = document.createElement("a");
+        a.style = "display: none";
+        a.href = url;
+        a.download = "five-letter-word-game-export.txt";
+        document.body.appendChild(a);
+        a.click()
+
+        // Remove the Object URL and clean up the anchor tag
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }
+
+      function importAppState(appStateFile) {
+        const appState = loadAppState();
+        const fileReader = new FileReader();
+        fileReader.readAsText(appStateFile);
+        fileReader.onload = (event) => {
+          let newAppState;
+          try {
+            newAppState = JSON.parse(event.target.result);
+          } catch (err) {
+            blastToast("Could not parse uploaded file");
+            return;
+          }
+
+          if (!newAppState.games) {
+            blastToast("Game state missing games field");
+            return;
+          }
+
+          console.log('new app state', newAppState);
+          let gamesUpdated = 0;
+          for (let gameIdx in newAppState.games) {
+            console.log('checing game', gameIdx);
+            // If the player has already played this game on this instance, skip it
+            if (appState.games[gameIdx]) {
+              continue;
+            }
+
+            appState.games[gameIdx] = newAppState.games[gameIdx];
+          };
+
+          saveAppState(appState);
+          blastToast("Imported " + gamesUpdated + " games", 2000);
+          setTimeout(() => {
+            init();
+          }, 2000);
+        }
       }
 
       function cleanup() {
@@ -495,6 +578,32 @@
           window.cleanupFns.push(() =>
             setting.removeEventListener("change", changeFn)
           );
+        });
+
+        // Export the game state button
+        const exportButton = document.getElementById("export");
+        const exportFn = () => {
+          const currentAppState = loadAppState();
+          exportAppState(currentAppState);
+        }
+        exportButton.addEventListener("click", exportFn);
+        window.cleanupFns.push(() => {
+          exportButton.removeEventListener("click", exportFn);
+        });
+
+        // Import the game state button
+        const importButton = document.getElementById("import");
+        const importFn = () => {
+          const file = document.getElementById("import-file");
+          if (file.files.length) {
+            importAppState(file.files[0]);
+          } else {
+            blastToast("Please choose a game state file");
+          }
+        }
+        importButton.addEventListener("click", importFn);
+        window.cleanupFns.push(() => {
+          importButton.removeEventListener("click", importFn);
         });
 
         // Apply various settings

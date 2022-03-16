@@ -97,19 +97,19 @@ button:active {
   align-items: center;
 }
 
-.nav-button {
+.header .info {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+.header .nav-button {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 6px;
   touch-action: manipulation;
-}
-
-body .header .info {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 16px;
 }
 
 #game {
@@ -145,23 +145,18 @@ body .header .info {
   }
 }
 
+@media (min-height: 640px) {
+    #guesses {
+      width: 320px;
+    }
+  }
+
 @media (min-height: 650px) {
   #guesses {
-    width: 320px;
+    width: 350px;
   }
 }
 
-@media (min-height: 680px) {
-  #guesses {
-    width: 340px;
-  }
-}
-
-@media (min-height: 700px) {
-  #guesses {
-    width: 360px;
-  }
-}
 
 .tile {
   flex: 1;
@@ -361,6 +356,11 @@ body .header .info {
   margin-bottom: 32px;
 }
 
+body:not(.debug) #settings [data-setting-row="hardmode"] {
+  display: none;
+}
+
+
 #settings #close-settings {
   padding: 4px;
 }
@@ -391,8 +391,12 @@ body .header .info {
   font-size: 0.8em;
 }
 
+#settings .contents .setting .property .description > * + * {
+  margin-top: 16px;
+}
+
 #settings .contents .setting .value {
   display: flex;
   justify-content: center;
-  width: 10%;
+  width: 20%;
 }
