@@ -19,6 +19,9 @@
   --tile-border: #d3d6da;
   --tile-border-populated: #878a8c;
 
+  --toast-bg: black;
+  --toast-text: white;
+
   --button-bg: var(--key-bg);
   --button-color: var(--key-color);
   --button-bg-hover: #acb2b9;
@@ -46,6 +49,9 @@ body.dark-theme {
   --tile-absent: #3a3a3c;
   --tile-border: #3a3a3c;
   --tile-border-populated: #565758;
+
+  --toast-bg: white;
+  --toast-text: black;
 
   color: white;
 }
@@ -99,7 +105,7 @@ button:active {
   touch-action: manipulation;
 }
 
-body.debug .header .info {
+body .header .info {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -226,7 +232,7 @@ body.debug .header .info {
 
 #keyboard .row {
   display: flex;
-  flex-wrap: no-wrap;
+  flex-wrap: nowrap;
 }
 
 #keyboard .row + .row {
@@ -296,12 +302,11 @@ body.debug .header .info {
 
 #toast {
   position: absolute;
-  top: 10%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, 0);
   pointer-events: none;
   max-width: 32ch;
-  width: 100%;
   z-index: 100;
 
   opacity: 0;
@@ -316,16 +321,11 @@ body.debug .header .info {
   justify-content: center;
   padding: 1em;
   border-radius: 3px;
-  background: black;
+  background: var(--toast-bg);
   text-align: center;
 
-  color: white;
+  color: var(--toast-text);
   font-weight: bold;
-}
-
-/* Temporary: hide settings button */
-body:not(.debug) #show-settings {
-  display: none;
 }
 
 #settings-overlay {

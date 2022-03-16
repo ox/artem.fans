@@ -12,7 +12,11 @@
       name="description"
       content="A fun word game that you may have played before. Attempt every word in the list!"
     />
-    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <link
+      href="./style.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <script src="./words.js"></script>
   </head>
   <body>
@@ -192,7 +196,7 @@
         </div>
 
         <div class="contents">
-          <div class="setting">
+          <!-- <div class="setting">
             <div class="property">
               <div class="name">Hard Mode</div>
               <div class="description">
@@ -202,7 +206,7 @@
             <div class="value">
               <input type="checkbox" class="toggle" data-setting="hardmode" />
             </div>
-          </div>
+          </div> -->
           <div class="setting">
             <div class="property">
               <div class="name">Dark Theme</div>
@@ -274,7 +278,7 @@
         localStorage.setItem("appState", JSON.stringify(newAppState));
       }
 
-      // Game state holds the
+      // Game state holds everything
       function loadGameState(appState) {
         const gameIdx = appState.currentGame;
         const game = appState.games[gameIdx];
@@ -347,9 +351,7 @@
         initBoard(appState, gameState);
         initKeyboard(appState, gameState);
         initNavigation(appState, gameState);
-        if (appState.showDebug) {
-          initSettings(appState, gameState);
-        }
+        initSettings(appState, gameState);
         updateGame(appState, gameState);
       }
 
@@ -368,6 +370,12 @@
         document.addEventListener("keydown", keydownFn);
         window.cleanupFns.push(() =>
           document.removeEventListener("keydown", keydownFn)
+        );
+
+        const keyupFn = (e) => keyup(appState, gameState, e);
+        document.addEventListener("keyup", keyupFn);
+        window.cleanupFns.push(() =>
+          document.removeEventListener("keyup", keyupFn)
         );
 
         const keys = document.querySelectorAll(".key");
@@ -425,29 +433,29 @@
           );
         }
 
+        const settingsOverlay = document.getElementById("settings-overlay");
+        const settingsShowButton = document.getElementById("show-settings");
+        const settingsShowFn = () => {
+          settingsShowButton.blur();
+          settingsOverlay.classList.add("visible");
+        };
+        settingsShowButton.addEventListener("click", settingsShowFn);
+        window.cleanupFns.push(() =>
+          settingsShowButton.removeEventListener("click", settingsShowFn)
+        );
+
+        const settingsHideButton = document.getElementById("close-settings");
+        const settingsCloseFn = () => {
+          settingsHideButton.blur();
+          settingsOverlay.classList.remove("visible");
+        };
+        settingsHideButton.addEventListener("click", settingsCloseFn);
+        window.cleanupFns.push(() =>
+          settingsHideButton.removeEventListener("click", settingsCloseFn)
+        );
+
         if (appState.showDebug) {
           document.body.classList.add("debug");
-
-          const settingsOverlay = document.getElementById("settings-overlay");
-          const settingsShowButton = document.getElementById("show-settings");
-          const settingsShowFn = () => {
-            settingsShowButton.blur();
-            settingsOverlay.classList.add("visible");
-          };
-          settingsShowButton.addEventListener("click", settingsShowFn);
-          window.cleanupFns.push(() =>
-            settingsShowButton.removeEventListener("click", settingsShowFn)
-          );
-
-          const settingsHideButton = document.getElementById("close-settings");
-          const settingsCloseFn = () => {
-            settingsHideButton.blur();
-            settingsOverlay.classList.remove("visible");
-          };
-          settingsHideButton.addEventListener("click", settingsCloseFn);
-          window.cleanupFns.push(() =>
-            settingsHideButton.removeEventListener("click", settingsCloseFn)
-          );
         } else if (document.body.classList.contains("visible")) {
           document.body.classList.remove("debug");
         }
@@ -480,7 +488,6 @@
               }
             }
 
-            console.log("changed", settingName, "to", newValue);
             setSetting(appState, settingName, newValue);
             init();
           };
@@ -721,8 +728,20 @@
         }
       }
 
+      // metaPressed tracks if meta/control is being held down so browser events can trigger
+      let metaPressed = false;
       function keydown(appState, gameState, e) {
         if (e.repeat && e.key !== "Backspace") {
+          return;
+        }
+
+        if (e.key === "Meta" || e.key === "Control") {
+          metaPressed = true;
+          return;
+        }
+
+        // Return if there is a meta/control key being pressed
+        if (metaPressed) {
           return;
         }
 
@@ -740,6 +759,13 @@
         }
 
         playKeypress(appState, gameState, e.key);
+      }
+
+      function keyup(appState, gameState, e) {
+        if (e.key === "Meta" || e.key === "Control") {
+          metaPressed = false;
+          return;
+        }
       }
 
       init();
