@@ -7,7 +7,7 @@
 :root {
   --bg: white;
   --game-max-width: 500px;
-  --header-height: 40px;
+  --header-height: 50px;
   --key-bg: #d3d6da;
   --key-color: black;
   --key-evaluated: white;
@@ -92,8 +92,9 @@ button:active {
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
+  padding: 0 16px;
 
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -102,6 +103,8 @@ button:active {
     flex-wrap: nowrap;
     align-items: center;
     gap: 16px;
+    font-size: 20px;
+    font-weight: bold;
   }
 
 .header .nav-button {
