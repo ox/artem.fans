@@ -27,6 +27,12 @@
   --toast-bg: black;
   --toast-text: white;
 
+  --modal-bg: white;
+  --modal-text: black;
+  --modal-text-contrast: white;
+
+  --guess-distribution-bar-bg: #3a3a3c;
+
   --button-bg: var(--key-bg);
   --button-color: var(--key-color);
   --button-bg-hover: #acb2b9;
@@ -60,6 +66,10 @@ body.dark-theme {
 
   --toast-bg: white;
   --toast-text: black;
+
+  --modal-bg: black;
+  --modal-text: white;
+  --modal-text-contrast: black;
 
   color: white;
 }
@@ -95,7 +105,6 @@ button:active {
 
 .header {
   height: var(--header-height);
-  border-bottom: 1px solid var(--header-border);
 
   display: flex;
   flex-wrap: nowrap;
@@ -104,6 +113,14 @@ button:active {
 
   justify-content: space-between;
   align-items: center;
+}
+
+.header.centered {
+  justify-content: center;
+}
+
+.header.underlined {
+  border-bottom: 1px solid var(--header-border);
 }
 
 .header .info {
@@ -115,7 +132,7 @@ button:active {
     font-weight: bold;
   }
 
-.header .nav-button {
+.nav-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,6 +349,140 @@ button:active {
 
   color: var(--toast-text);
   font-weight: bold;
+}
+
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: var(--game-max-width);
+  z-index: 100;
+  transition: opacity 100ms ease-in;
+}
+
+
+#scoreboard-overlay {
+  visibility: hidden;
+  background: rgba(0,0,0,0);
+}
+
+#scoreboard-overlay.visible {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(0,0,0,0.5);
+  visibility: visible;
+}
+
+#modal .header {
+  position: relative;
+}
+
+#modal .header #close-scoreboard {
+  position: absolute;
+  right: 0;
+}
+
+#modal .contents {
+  justify-content: center;
+  margin: 8px 16px;
+  padding: 16px;
+  border: 1px solid #1a1a1b;
+  border-radius: 8px;
+  background: var(--bg);
+  text-align: center;
+
+  color: var(--modal-text);
+}
+
+#modal .contents .section h2 {
+  margin-bottom: 16px;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+#statistics {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+#statistics .statistic {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  margin: 0 4px;
+}
+
+#statistics .statistic .value {
+  font-size: 36px;
+}
+
+#statistics .statistic .name {
+  font-size: 12px;
+}
+
+#guess-distribution {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+#guess-distribution .row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+#guess-distribution .row + .row {
+  margin-top: 4px;
+}
+
+#guess-distribution .row .key {
+  margin-right: 8px;
+}
+
+#guess-distribution .row .guage {
+  display: flex;
+  justify-content: end;
+  background: var(--guess-distribution-bar-bg);
+}
+
+#guess-distribution .row .guage .value {
+  min-width: 2ch;
+  padding: 2px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--modal-text-accent);
+}
+
+#share-area {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 16px;
+}
+
+#share-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.25em 0.5em;
+
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+#share-button > * + * {
+  margin-left: 0.3em;
 }
 
 #settings-overlay {
