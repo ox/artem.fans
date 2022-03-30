@@ -7,7 +7,7 @@
   <title>5 Letter Word Game</title>
   <meta name="title" content="5 Letter Word Game" />
   <meta name="description" content="A fun word game that you may have played before. Attempt every word in the list!" />
-  <link href="./style.css" rel="stylesheet" type="text/css" />
+  <link href="./style.v1.css" rel="stylesheet" type="text/css" />
   <script src="./words.js"></script>
 </head>
 
@@ -122,19 +122,19 @@
 
     <div id="toast"></div>
     <div id="scoreboard-overlay">
-      <div id="modal">
+      <div id="scoreboard-modal">
         <div class="contents">
-          <div id="statistic-section">
-            <div class="header centered">
-              <h2>Statistics</h2>
-              <button id="close-scoreboard" class="nav-button">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z"
-                    fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-                </svg>
-              </button>
-            </div>
+          <div class="header centered">
+            <h2>Statistics</h2>
+            <button id="close-scoreboard" class="nav-button">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z"
+                  fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="statistics-section">
             <div id="statistics">
               <div class="statistic">
                 <div class="value" data-statistic="played">0</div>
@@ -155,7 +155,7 @@
           </div>
         </div>
 
-        <div id="guess-distribution-section">
+        <div class="statistics-section">
           <h2>Guess Distribution</h2>
           <div id="guess-distribution">
             <div class="row" data-guess-key="1">

@@ -27,9 +27,9 @@
   --toast-bg: black;
   --toast-text: white;
 
-  --modal-bg: white;
-  --modal-text: black;
-  --modal-text-contrast: white;
+  --scoreboard-bg: white;
+  --scoreboard-text: black;
+  --guage-text: white;
 
   --guess-distribution-bar-bg: #3a3a3c;
 
@@ -67,9 +67,9 @@ body.dark-theme {
   --toast-bg: white;
   --toast-text: black;
 
-  --modal-bg: black;
-  --modal-text: white;
-  --modal-text-contrast: black;
+  --scoreboard-bg: black;
+  --scoreboard-text: white;
+  --guage-text: black;
 
   color: white;
 }
@@ -351,18 +351,6 @@ button:active {
   font-weight: bold;
 }
 
-#modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: var(--game-max-width);
-  z-index: 100;
-  transition: opacity 100ms ease-in;
-}
-
-
 #scoreboard-overlay {
   visibility: hidden;
   background: rgba(0,0,0,0);
@@ -379,16 +367,27 @@ button:active {
   visibility: visible;
 }
 
-#modal .header {
+#scoreboard-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: var(--game-max-width);
+  z-index: 100;
+  transition: opacity 100ms ease-in;
+}
+
+#scoreboard-modal .header {
   position: relative;
 }
 
-#modal .header #close-scoreboard {
+#scoreboard-modal .header #close-scoreboard {
   position: absolute;
   right: 0;
 }
 
-#modal .contents {
+#scoreboard-modal .contents {
   justify-content: center;
   margin: 8px 16px;
   padding: 16px;
@@ -397,14 +396,17 @@ button:active {
   background: var(--bg);
   text-align: center;
 
-  color: var(--modal-text);
+  color: var(--scoreboard-text);
 }
 
-#modal .contents .section h2 {
-  margin-bottom: 16px;
+#scoreboard-modal .contents h2 {
   font-size: 16px;
   text-transform: uppercase;
   font-weight: bolder;
+}
+
+.statistics-section h2 {
+  margin-bottom: 16px;
 }
 
 #statistics {
@@ -452,7 +454,7 @@ button:active {
 #guess-distribution .row .guage {
   display: flex;
   justify-content: end;
-  background: var(--guess-distribution-bar-bg);
+  background: var(--tile-absent);
 }
 
 #guess-distribution .row .guage .value {
@@ -460,7 +462,7 @@ button:active {
   padding: 2px 8px;
   font-size: 14px;
   font-weight: bold;
-  color: var(--modal-text-accent);
+  color: white;
 }
 
 #share-area {
@@ -475,10 +477,15 @@ button:active {
   justify-content: center;
   align-items: center;
 
-  padding: 0.25em 0.5em;
+  padding: 0.5em 1em;
 
-  font-size: 1.2em;
+  font-size: 1.15em;
+  font-weight: bold;
+  letter-spacing: -0.2px;
   text-transform: uppercase;
+
+  color: var(--key-color);
+  background: var(--tile-correct);
 }
 
 #share-button > * + * {
