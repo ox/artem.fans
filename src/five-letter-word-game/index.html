@@ -818,7 +818,7 @@
       statGamesPlayed.innerHTML = gamesPlayed;
 
       const statGamesWonPct = document.querySelector('[data-statistic="win-pct"]');
-      statGamesWonPct.innerHTML = ((gamesWon / gamesPlayed) * 100).toPrecision(2);
+      statGamesWonPct.innerHTML = Math.floor((gamesWon / gamesPlayed) * 100);
 
       // Calculate the current streak of won games
       let currentStreak = 0;
