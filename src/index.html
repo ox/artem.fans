@@ -50,11 +50,11 @@
 
       const panePermalink = '#' + panePath.join(',');
       newPane.setAttribute('data-permalink', panePermalink);
-      
+
       const permalink = document.createElement('a');
       permalink.href = panePermalink;
       permalink.text = "permalink";
-      permalink.classList.add("pt-8");
+      permalink.classList.add("mt-8");
       newPane.appendChild(permalink);
 
       return newPane;
@@ -77,7 +77,7 @@
       return run;
     }
 
-    function clickListener (e) {
+    function clickListener(e) {
       e.preventDefault();
 
       const target = e.target.getAttribute('data-openright');
@@ -100,7 +100,7 @@
       loadPane(target)
         .then((newPane) => {
           if (newPane) {
-            newPane.scrollIntoView({behavior: "smooth"});
+            newPane.scrollIntoView({ behavior: "smooth" });
           }
         })
         .then(() => {
@@ -138,7 +138,7 @@
         }
       })
       .then(attachLinkHooks);
-    
+
     attachLinkHooks();
   </script>
 </body>

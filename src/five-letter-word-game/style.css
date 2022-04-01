@@ -37,6 +37,8 @@
   --button-color: var(--key-color);
   --button-bg-hover: #acb2b9;
   --button-bg-active: #e3e5e8;
+
+  --share-button-text: white;
 }
 
 html {
@@ -484,7 +486,7 @@ button:active {
   letter-spacing: -0.2px;
   text-transform: uppercase;
 
-  color: var(--key-color);
+  color: var(--share-button-text);
   background: var(--tile-correct);
 }
 
